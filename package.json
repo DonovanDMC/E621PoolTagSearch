@@ -1,6 +1,6 @@
 {
   "name": "e621-pool-tag-search",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A way to search pools by tags.",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",

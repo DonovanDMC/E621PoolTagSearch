@@ -203,7 +203,6 @@ function initFormListener($form: JQuery<HTMLElement>) {
 
 function getQuery($form: JQuery<HTMLElement>) {
     const q = new URLSearchParams();
-    q.append("domain", "pools.e621.ws");
     $form.find("input,select").each((_, e) => {
         const $e = $(e);
         if ($e.attr("name") !== "commit" && $e.val()) {

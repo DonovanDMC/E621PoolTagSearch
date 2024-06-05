@@ -18,33 +18,35 @@ document.addEventListener("DOMContentLoaded", async() => {
 });
 
 function reinitPagination(pages: number) {
+    $("div.paginator").remove();
     const $table = $("table.striped");
     const query = getQuery(getSearchForm());
     const page = Number(query.get("page") || getPage());
-    $(".paginator").remove();
     const div = $("<div class=\"paginator\"></div>");
     const menu = $("<menu></menu>");
-    const arrowRight = $("<li class=\"arrow\"><span><i class=\"fa-solid fa-chevron-left\"></i></span></li>");
-    const arrowRightActive = $(`<li class="arrow"><a href="#" data-page-id="${page - 1}"><i class="fa-solid fa-chevron-left"></i></span></li>`);
-    const arrowLeft = $("<li class=\"arrow\"><span><i class=\"fa-solid fa-chevron-right\"></i></span></li>");
-    const arrowLeftActive = $(`<li class="arrow"><a href="#" data-page-id="${page + 1}"><i class="fa-solid fa-chevron-right"></i></span></li>`);
+    const arrowLeft = $("<li class=\"arrow\"><span><i class=\"fa-solid fa-chevron-left\"></i></span></li>");
+    const arrowLeftActive = $(`<li class="arrow"><a href="#" data-page-id="${page - 1}"><i class="fa-solid fa-chevron-left"></i></span></li>`);
+    const arrowRight = $("<li class=\"arrow\"><span><i class=\"fa-solid fa-chevron-right\"></i></span></li>");
+    const arrowRightActive = $(`<li class="arrow"><a href="#" data-page-id="${page + 1}"><i class="fa-solid fa-chevron-right"></i></span></li>`);
     if (pages === 0) {
-        arrowRight.appendTo(div);
-        arrowLeft.appendTo(div);
+        arrowLeft.appendTo(menu);
+        arrowRight.appendTo(menu);
+        menu.appendTo(div);
+        div.insertAfter($table);
         return;
     }
 
     const parts: Array<JQuery<HTMLElement>> = [];
     if (page > 1 && pages > 1) {
-        parts.push(arrowRightActive);
+        parts.push(arrowLeftActive);
     } else {
-        parts.push(arrowRight);
+        parts.push(arrowLeft);
     }
 
     if (page === 1) {
-        parts.push(arrowRight);
+        parts.push(arrowLeft);
     } else {
-        parts.push(arrowRightActive);
+        parts.push(arrowLeftActive);
     }
     if (pages > 1) {
         if (page > 6) {
@@ -66,18 +68,18 @@ function reinitPagination(pages: number) {
                 parts.push($(`<li><a href="#" class="numbered-page" data-page-id="${i}">${i}</a></li>`));
             }
         }
-        if (page + 5 !== pages) {
+        if (page + 5 < pages) {
             parts.push($("<li class=\"more\"><i class=\"fa-solid fa-ellipsis\"></i></li>"));
         }
-        if (page !== pages) {
+        if (page < pages) {
             query.set("page", String(pages));
             parts.push($(`<li><a href="#" class="numbered-page" data-page-id="${pages}">${pages}</a></li>`));
         }
     }
     if (page === pages) {
-        parts.push(arrowLeft);
+        parts.push(arrowRight);
     } else {
-        parts.push(arrowLeftActive);
+        parts.push(arrowRightActive);
     }
     for (const part of parts) {
         part.appendTo(menu);
@@ -255,8 +257,7 @@ function showSearch() {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function hideSearch() {
+/* function hideSearch() {
     const $searchForm = $("#searchform");
     const $searchShow = $("#search-form-show-link");
     const $searchHide = $("#search-form-hide-link");
@@ -265,4 +266,4 @@ function hideSearch() {
         $searchShow.show();
         $searchHide.hide();
     }
-}
+} */

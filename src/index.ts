@@ -1,6 +1,7 @@
 import type { CurrentUser, ErrorResponse, Pool, PoolResponse } from "./types";
 
-const baseURL = "https://pools.e621.ws/json";
+const baseURL = "https://e621-pools.furry.cool/json";
+// const baseURL ="https://pools.e621.ws/json";
 // const baseURL = "http://websites4.containers.local:3000/json";
 document.addEventListener("DOMContentLoaded", async() => {
     if (window.location.pathname !== "/pools") {

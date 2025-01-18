@@ -27,7 +27,7 @@ export default {
                 "run-at":  RunAt.DocumentBody,
                 "connect": [
                     "pools.e621.ws",
-                    "websites4.containers.local"
+                    "e621-pools.furry.cool"
                 ],
                 "grant": [
                     "GM.xmlHttpRequest",
